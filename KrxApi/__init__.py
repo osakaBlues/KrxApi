@@ -1,5 +1,5 @@
 from KrxApi.command import Command
-from KrxApi.payload import PayloadAllStocks
+from KrxApi.payload import PayloadAllStocks, PayloadAllStocksFlRate
 from KrxApi.util.get_time import get_formatted_date_today, get_formatted_date_week_before
 
 
