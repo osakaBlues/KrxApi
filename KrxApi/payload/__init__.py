@@ -17,3 +17,11 @@ class Payload:
             "money": self._money,
             "csvxls_isNo": self._csvxls_isNo
         }
+
+
+class PayloadAllStocks(Payload):
+    def __init__(self, mktid, trddd, share, money):
+        self._mktId = mktid
+        self._trdDd = trddd
+        self._share = share
+        self._money = money
