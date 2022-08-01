@@ -11,8 +11,7 @@ class Command:
         self.payload = payload
         self.deserializer = Deserializer()
 
-    def execute(self):
+    def execute(self) -> KrxResponse:
         response = requests.get(URLS.STOCK_INFO_CMD, params=self.payload.to_dict())
         result = self.deserializer.deserialize(response.text)
-        krx_response = KrxResponse(result)
-        return krx_response.get_data()
+        return KrxResponse(result)

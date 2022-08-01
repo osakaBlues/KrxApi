@@ -11,6 +11,7 @@ class Krx:
                              share=SHARE.ONE,
                              money=MONEY.WON):
         pl = PayloadStock()
+        pl.bld = BLD.ALL_STOCK
         pl.mktId = mktId
         pl.trdDd = trdDd
         pl.share = share
