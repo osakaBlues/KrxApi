@@ -1,6 +1,6 @@
-from .command import Command
-from .payload import PayloadAllStocks
-from util.get_time import get_formatted_date
+from KrxApi.command import Command
+from KrxApi.payload import PayloadAllStocks
+from KrxApi.util.get_time import get_formatted_date
 
 
 class Krx:

@@ -1,6 +1,6 @@
-from ..resources import *
-from ..serializer import Deserializer
-from ..KrxResponse import KrxResponse
+from KrxApi.resources import *
+from KrxApi.serializer import Deserializer
+from KrxApi.KrxResponse import KrxResponse
 import requests
 
 
