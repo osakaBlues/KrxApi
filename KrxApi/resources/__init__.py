@@ -1,1 +1,1 @@
-STOCK_INFO_CMD = 'http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd'
+__all__ = ["BLD", "SHARE", "MARKETS", "MONEY", "URLS", "LOCALE"]

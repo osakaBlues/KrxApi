@@ -1,0 +1,4 @@
+ALL = 'ALL'
+KOSPI = 'STK'
+KOSDAQ = 'KSQ'
+KONEX = 'KNX'

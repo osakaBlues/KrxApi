@@ -1,0 +1,1 @@
+ALL_STOCK = 'dbms/MDC/STAT/standard/MDCSTAT01501'
