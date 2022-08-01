@@ -13,8 +13,8 @@ class Payload:
 
 
 class PayloadStock(Payload):
-    adjStkPrc_check: str = "Y"
-    adjStkPrc: str = "2"
+    adjStkPrc_check: str = None
+    adjStkPrc: str = None
     bld: str = None
     locale: str = LOCALE.KOR
     mktId: str = MARKETS.ALL
@@ -23,6 +23,6 @@ class PayloadStock(Payload):
     endDd: str = None
     share: int = SHARE.ONE
     money: int = MONEY.WON
-    csvxls_isNo: str = "false"
+    csvxls_isNo: bool = False
 
 
