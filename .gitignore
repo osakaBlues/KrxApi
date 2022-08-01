@@ -1,4 +1,6 @@
 .idea/
 *.pyc
 __pycache__/
+venv/
+KrxApi/test.py
 test.py
