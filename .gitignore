@@ -4,3 +4,4 @@ __pycache__/
 venv/
 KrxApi/test.py
 test.py
+*/.pytest_cache
