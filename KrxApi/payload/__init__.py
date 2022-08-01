@@ -10,7 +10,7 @@ class Payload:
             if not callable(v) and not k.startswith("_") and v is not None:
                 result[k] = v
         return result
-    
+
 
 class PayloadStock(Payload):
     adjStkPrc_check: str = "Y"
