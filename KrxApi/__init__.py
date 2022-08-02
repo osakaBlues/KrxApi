@@ -1,4 +1,4 @@
-from KrxApi.command import Command
+from KrxApi.command import BldCommand
 from KrxApi.payload import PayloadStock
 from KrxApi.util.get_time import get_formatted_date_today, get_formatted_date_week_before
 from KrxApi.resources import *
@@ -16,7 +16,7 @@ class Krx:
         pl.trdDd = trdDd
         pl.share = share
         pl.money = money
-        cmd = Command(pl)
+        cmd = BldCommand(pl)
         result = cmd.execute()
         return result
 
@@ -32,7 +32,7 @@ class Krx:
         pl.money = money
         pl.endDd = endDd
         pl.strtDd = strtDd
-        cmd = Command(pl)
+        cmd = BldCommand(pl)
         result = cmd.execute()
         return result
 
