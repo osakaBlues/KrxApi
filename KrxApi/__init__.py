@@ -5,13 +5,13 @@ from KrxApi.resources import *
 
 
 class Krx:
-    def get_all_stocks_price(self,
+    def get_all_stock_prices(self,
                              mktId=MARKETS.ALL,
                              trdDd=get_formatted_date_today(),
                              share=SHARE.ONE,
                              money=MONEY.WON):
         pl = PayloadStock()
-        pl.bld = BLD.ALL_STOCK
+        pl.bld = BLD.ALL_STOCKS
         pl.mktId = mktId
         pl.trdDd = trdDd
         pl.share = share
@@ -20,14 +20,14 @@ class Krx:
         result = cmd.execute()
         return result
 
-    def get_all_stocks_flrate(self,
+    def get_all_stock_fluctuation_rates(self,
                               mktId=MARKETS.ALL,
                               strtDd=get_formatted_date_week_before(),
                               endDd=get_formatted_date_today(),
                               share=SHARE.ONE,
                               money=MONEY.WON):
         pl = PayloadStock()
-        pl.bld = BLD.ALL_STOCK_FLRATE
+        pl.bld = BLD.ALL_STOCK_FLUCTUATION_RATES
         pl.mktId = mktId
         pl.share = share
         pl.money = money
@@ -48,12 +48,12 @@ class Krx:
                         share=SHARE.ONE,
                         money=MONEY.WON):
         pl = PayloadStock()
-        pl.bld = BLD.INDV_STOCK_PRICE
+        pl.bld = BLD.A_STOCK_PRICE
         """
         todo
         payload에 데이터 넣기
         """
-        pl.bld = BLD.INDV_STOCK_PRICE
+        pl.bld = BLD.A_STOCK_PRICE
         cmd = BldCommand(pl)
         result = cmd.execute()
         return result
@@ -72,7 +72,7 @@ class Krx:
         todo
         payload에 데이터 넣기
         """
-        pl.bld = BLD.INDV_STOCK_PRICE
+        pl.bld = BLD.A_STOCK_PRICE
         cmd = BldCommand(pl)
         result = cmd.execute()
         return result
