@@ -1,4 +1,3 @@
-import inspect
 from KrxApi.resources import *
 
 
