@@ -2,24 +2,18 @@ from KrxApi.resources import *
 from KrxApi.serializer import Deserializer
 from KrxApi.KrxResponse import KrxResponse
 from KrxApi.payload import Payload
-import requests
+from KrxApi.connection import Connection
 
 
 class Command:
-    deserializer: Deserializer
-    payload: Payload
-    url: str = None
+    __slots__ = ['deserializer', 'connection']
 
-    def __init__(self, payload):
-        self.payload = payload
-        self.deserializer = Deserializer()
+    def __init__(self, connection: Connection):
+        self.deserializer: Deserializer = Deserializer()
+        self.connection: Connection = connection
 
     def execute(self) -> KrxResponse:
-        if self.url is None:
+        if self.connection is None:
             raise NotImplementedError
-        response = requests.get(self.url, params=self.payload.to_dict())
-        result = self.deserializer.deserialize(response.text)
+        result = self.deserializer.deserialize(self.connection.get_data())
         return KrxResponse(result)
-
-class BldCommand(Command):
-    url = URLS.STOCK_INFO_CMD

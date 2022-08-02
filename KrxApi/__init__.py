@@ -1,45 +1,40 @@
-from KrxApi.command import BldCommand
+from KrxApi.command import Command
 from KrxApi.payload import PayloadStock
 from KrxApi.util.get_time import get_formatted_date_today, get_formatted_date_week_before
 from KrxApi.resources import *
 from KrxApi.payload.builder import PayloadStockBuilder
+from KrxApi.connection import Connection
 
 
 class Krx:
-    def get_all_stock_prices(self,
-                             mktId=MARKETS.ALL,
+    @staticmethod
+    def get_all_stock_prices(mktId=MARKETS.ALL,
                              trdDd=get_formatted_date_today()):
-        return BldCommand(
-            PayloadStockBuilder()
-            .set_bld(BLD.ALL_STOCKS)
-            .set_mktId(mktId)
-            .set_trdDd(trdDd)
-            .build()
-        ).execute()
+        return Command(
+                Connection(
+                    (PayloadStockBuilder()
+                     .set_bld(BLD.ALL_STOCKS)
+                     .set_mktId(mktId)
+                     .set_trdDd(trdDd)
+                     .build()), URLS.STOCK_INFO_CMD)).execute()
 
-    def get_all_stock_fluctuation_rates(self,
-                                        mktId=MARKETS.ALL,
+    @staticmethod
+    def get_all_stock_fluctuation_rates(mktId=MARKETS.ALL,
                                         strtDd=get_formatted_date_week_before(),
                                         endDd=get_formatted_date_today()):
-        return BldCommand(
-            PayloadStockBuilder()
-            .set_bld(BLD.ALL_STOCK_FLUCTUATION_RATES)
-            .set_mktId(mktId)
-            .set_trdDd(strtDd)
-            .set_endDd(endDd)
-            .build()
-        ).execute()
+        return Command(
+                Connection(
+                    (PayloadStockBuilder()
+                     .set_bld(BLD.ALL_STOCK_FLUCTUATION_RATES)
+                     .set_mktId(mktId)
+                     .set_trdDd(strtDd)
+                     .set_endDd(endDd)
+                     .build()), URLS.STOCK_INFO_CMD)).execute()
 
     def get_stock_price(self,
-                        tboxisuCd_finder_stkisu0_3="005930/삼성전자",
-                        isuCd="KR7005930003",
-                        isuCd2="KR7005930003",
-                        codeNmisuCd_finder_stkisu0_3="삼성전자",
-                        param1isuCd_finder_stkisu0_3="ALL",
+                        ticker,
                         strtDd=get_formatted_date_week_before(),
-                        endDd=get_formatted_date_today(),
-                        share=SHARE.ONE,
-                        money=MONEY.WON):
+                        endDd=get_formatted_date_today()):
         pl = PayloadStock()
         pl.bld = BLD.A_STOCK_PRICE
         """
@@ -47,7 +42,7 @@ class Krx:
         payload에 데이터 넣기
         """
         pl.bld = BLD.A_STOCK_PRICE
-        cmd = BldCommand(pl)
+        cmd = Command(pl)
         result = cmd.execute()
         return result
 
@@ -67,7 +62,7 @@ class Krx:
         payload에 데이터 넣기
         """
         pl.bld = BLD.A_STOCK_PRICE
-        cmd = BldCommand(pl)
+        cmd = Command(pl)
         result = cmd.execute()
         return result
 
