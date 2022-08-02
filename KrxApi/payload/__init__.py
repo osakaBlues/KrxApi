@@ -18,11 +18,13 @@ class PayloadStock(Payload):
     bld: str = None
     locale: str = LOCALE.KOR
     mktId: str = MARKETS.ALL
+    mktsel: str = None
     trdDd: str = None
     strtDd: str = None
     endDd: str = None
     share: int = SHARE.ONE
     money: int = MONEY.WON
+    typeNo: int = None
     csvxls_isNo: bool = False
 
 

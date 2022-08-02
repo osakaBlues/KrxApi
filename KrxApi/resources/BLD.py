@@ -14,3 +14,6 @@ ALL_STOCK_DESIG_INFO = "dbms/MDC/STAT/standard/MDCSTAT02001"
 INDV_STOCK_INFO_CHART = "dbms/MDC/STAT/standard/MDCSTAT02105"
 # 종목정보
 INDV_STOCK_INFO_GENERAL = "dbms/MDC/STAT/standard/MDCSTAT02101"
+
+"""주식 종목 검색"""
+SEARCH_INDV_STOCK = "dbms/comm/finder/finder_stkisu"
