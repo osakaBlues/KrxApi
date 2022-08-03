@@ -17,9 +17,21 @@ class Payload:
 
 
 class PayloadStock(Payload):
-    __slots__ = ['adjStkPrc_check', 'adjStkPrc', 'bld', 'locale', 'mktId',
-                 'mktsel', 'trdDd', 'strtDd', 'endDd', 'share',
-                 'money', 'typeNo', 'csvxls_isNo']
+    __slots__ = ['adjStkPrc_check',
+                 'adjStkPrc',
+                 'bld',
+                 'consonant',
+                 'locale',
+                 'mktId',
+                 'mktsel',
+                 'trdDd',
+                 'strtDd',
+                 'endDd',
+                 'share',
+                 'searchText',
+                 'money',
+                 'typeNo',
+                 'csvxls_isNo']
 
     def __init__(self):
         self.locale: str = LOCALE.KOR

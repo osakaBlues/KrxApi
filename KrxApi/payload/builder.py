@@ -31,3 +31,19 @@ class PayloadStockBuilder(PayloadBuilder):
     def set_endDd(self, endDd: str) -> 'PayloadStockBuilder':
         self._payload.endDd = endDd
         return self
+
+    def set_mktsel(self, mktsel: str) -> 'PayloadStockBuilder':
+        self._payload.mktsel = mktsel
+        return self
+
+    def set_typeNo(self, typeNo: str) -> 'PayloadStockBuilder':
+        self._payload.typeNo = typeNo
+        return self
+
+    def set_searchText(self, searchText: str) -> 'PayloadStockBuilder':
+        self._payload.searchText = searchText
+        return self
+
+    def set_consonant(self, consonant: str) -> 'PayloadStockBuilder':
+        self._payload.consonant = consonant
+        return self
