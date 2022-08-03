@@ -1,0 +1,12 @@
+{
+  "url": "http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd",
+  "payload": {
+    "bld": "dbms/MDC/STAT/standard/MDCSTAT01501",
+    "locale": "ko_KR",
+    "mktId": "ALL",
+    "trdDd": "20220801",
+    "share": 1,
+    "money": 1,
+    "csvxls_isNo": false
+  }
+}
