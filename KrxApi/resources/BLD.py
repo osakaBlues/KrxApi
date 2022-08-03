@@ -1,7 +1,10 @@
 """종목 시세"""
+# 전종목 시세
 ALL_STOCKS = 'dbms/MDC/STAT/standard/MDCSTAT01501'
+# 전종목 등락률
 ALL_STOCK_FLUCTUATION_RATES = "dbms/MDC/STAT/standard/MDCSTAT01602"
-A_STOCK_PRICE = "dbms/MDC/STAT/standard/MDCSTAT01701"
+# 개별종목 시세 추이
+A_STOCK_PRICE_INFO = "dbms/MDC/STAT/standard/MDCSTAT01701"
 
 """종목 정보"""
 # 전종목 기본 정보
