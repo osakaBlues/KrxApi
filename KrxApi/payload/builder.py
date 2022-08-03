@@ -47,3 +47,23 @@ class PayloadStockBuilder(PayloadBuilder):
     def set_consonant(self, consonant: str) -> 'PayloadStockBuilder':
         self._payload.consonant = consonant
         return self
+
+    def set_tboxisuCd_finder_stkisu0_3(self, tboxisuCd_finder_stkisu0_3: str) -> 'PayloadStockBuilder':
+        self._payload.tboxisuCd_finder_stkisu0_3 = tboxisuCd_finder_stkisu0_3
+        return self
+
+    def set_isuCd(self, isuCd: str) -> 'PayloadStockBuilder':
+        self._payload.isuCd = isuCd
+        return self
+
+    def set_isuCd2(self, isuCd2: str) -> 'PayloadStockBuilder':
+        self._payload.isuCd2 = isuCd2
+        return self
+
+    def set_codeNmisuCd_finder_stkisu0_0(self, codeNmisuCd_finder_stkisu0_0: str) -> 'PayloadStockBuilder':
+        self._payload.codeNmisuCd_finder_stkisu0_0 = codeNmisuCd_finder_stkisu0_0
+        return self
+
+    def set_param1isuCd_finder_stkisu0_0(self, param1isuCd_finder_stkisu0_0: str) -> 'PayloadStockBuilder':
+        self._payload.param1isuCd_finder_stkisu0_0 = param1isuCd_finder_stkisu0_0
+        return self
