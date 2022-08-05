@@ -1,7 +1,8 @@
 from KrxApi.command import Command
+from KrxApi.payload import PayloadStock
 from KrxApi.util.get_time import get_formatted_date_today, get_formatted_date_week_before
 from KrxApi.resources import *
-from KrxApi.payload.builder import PayloadBuilder
+from KrxApi.payload.builder import PayloadStockBuilder
 from KrxApi.connection import Connection
 
 
@@ -11,9 +12,10 @@ class Krx:
                              trdDd=get_formatted_date_today()):
         return Command(
             Connection(
-                (PayloadBuilder("all_stock_prices")
-                 .set_attribute('mktId', mktId)
-                 .set_attribute('trdDd', trdDd)
+                (PayloadStockBuilder()
+                 .set_bld(BLD.ALL_STOCKS)
+                 .set_mktId(mktId)
+                 .set_trdDd(trdDd)
                  .build()), URLS.STOCK_INFO_CMD)).execute()
 
     @staticmethod
@@ -22,10 +24,11 @@ class Krx:
                                         endDd=get_formatted_date_today()):
         return Command(
             Connection(
-                (PayloadBuilder("all_stock_fluctuations")
-                 .set_attribute('mktId', mktId)
-                 .set_attribute('strtDd', strtDd)
-                 .set_attribute('endDd', endDd)
+                (PayloadStockBuilder()
+                 .set_bld(BLD.ALL_STOCK_FLUCTUATION_RATES)
+                 .set_mktId(mktId)
+                 .set_trdDd(strtDd)
+                 .set_endDd(endDd)
                  .build()), URLS.STOCK_INFO_CMD)).execute()
 
     """

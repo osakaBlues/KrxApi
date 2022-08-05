@@ -1,22 +1,23 @@
 import unittest
 
-from KrxApi.payload import Payload
-from KrxApi.payload.builder import PayloadBuilder
+from KrxApi.payload import PayloadStock
+from KrxApi.payload.builder import PayloadStockBuilder
 from KrxApi.resources import *
 
 
 class TestPayload(unittest.TestCase):
     def test_PayloadStock(self):
-        pl = Payload()
+        pl = PayloadStock()
         pl.bld = "test"
         data = pl.to_dict()
         self.assertEqual("test", data['bld'])
         self.assertEqual(None, data.get('typeNo', None))
 
     def test_PayloadStockBuilder(self):
-        pl = (PayloadBuilder("all_stock_prices")
-              .set_attribute('mktId', "ALL")
-              .set_attribute('trdDd', "20220801")
+        pl = (PayloadStockBuilder()
+              .set_bld(BLD.ALL_STOCKS)
+              .set_mktId("ALL")
+              .set_trdDd("20220801")
               .build())
         target = {
             "bld": "dbms/MDC/STAT/standard/MDCSTAT01501",
