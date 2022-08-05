@@ -1,7 +1,5 @@
-from KrxApi.resources import *
-from KrxApi.serializer import Deserializer
+from KrxApi.serializer import Deserializer, DeserializeError
 from KrxApi.KrxResponse import KrxResponse
-from KrxApi.payload import Payload
 from KrxApi.connection import Connection
 
 
@@ -15,5 +13,8 @@ class Command:
     def execute(self) -> KrxResponse:
         if self.connection is None:
             raise NotImplementedError
-        result = self.deserializer.deserialize(self.connection.get_data())
+        try:
+            result = self.deserializer.deserialize(self.connection.get_data())
+        except DeserializeError:
+            raise ConnectionError
         return KrxResponse(result)

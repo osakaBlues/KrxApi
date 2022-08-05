@@ -1,5 +1,5 @@
 from KrxApi.payload import Payload
-from KrxApi.resources.schemas import schemas
+from KrxApi.resources.schemas import schemas, Attr
 
 
 class SchemaError(Exception):
@@ -16,8 +16,7 @@ class PayloadBuilder:
         for k, v in schema.items():
             if type(v) != dict:
                 raise SchemaError(k)
-            value = v.get("value", None)
-            setattr(self._payload, k, value)
+            setattr(self._payload, k, v.get(Attr.value))
 
     def build(self) -> Payload:
         return self._payload
