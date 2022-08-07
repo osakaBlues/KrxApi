@@ -2,8 +2,8 @@ from .Ticker import Ticker
 
 
 class KrxResponse:
-    def __init__(self):
-        self.data: any = None
+    def __init__(self, data):
+        self.data: any = data
 
     def set_data(self, data):
         self.data = data
