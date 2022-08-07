@@ -18,3 +18,13 @@ class Command:
         except DeserializeError:
             raise ConnectionError
         return KrxResponse(result)
+
+    def get_result(self):
+        if self.connection is None:
+            raise NotImplementedError
+        try:
+            result = self.deserializer.deserialize(self.connection.get_data())
+        except DeserializeError:
+            raise ConnectionError
+        return result
+

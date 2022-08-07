@@ -14,6 +14,6 @@ class Connection:
             result = requests.get(self.url, params=self.payload.to_dict())
             if result.status_code != 200:
                 raise RuntimeError
-        except:
-            raise ConnectionError("연결에 실패했습니다.")
+        except requests.exceptions.RequestException as err:
+            raise ConnectionError("연결에 실패했습니다.", err)
         return result.text

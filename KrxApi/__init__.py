@@ -19,7 +19,11 @@ class Krx:
 
     @staticmethod
     def get_all_stock_prices(mktId=MARKETS.ALL,
-                             trdDd=get_formatted_date_today()):
+                             trdDd=get_formatted_date_today(),
+                             full_code=False,
+                             fluc_rate=False,
+                             trade_amount=False,
+                             trade_money=False):
         return Command(
             Connection(
                 (PayloadBuilder("all_stock_prices")
