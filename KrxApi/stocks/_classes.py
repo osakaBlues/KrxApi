@@ -1,3 +1,5 @@
+import datetime
+
 from ..command import *
 from ..util.get_time import *
 from ..connection import *
@@ -14,6 +16,10 @@ class AllStockPrice:
     def __init__(self,
                  mktId="ALL",
                  trdDd=get_formatted_date_today()):
+        if mktId not in self._parameter_constraints["mktId"]:
+            raise ValueError("Invalid market code please check 'mktId'")
+        datetime.datetime.strptime(trdDd, self._parameter_constraints["trdDd"])
+
         self._mktId = mktId
         self._trdDd = trdDd
         self._data = None
