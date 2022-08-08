@@ -45,6 +45,8 @@ class AllStockPrice:
             raise ValueError("Stock data is not loaded yet. Call 'get' with "
                              "appropriate arguments before using this method.")
 
+        from ._names import names_total as nt
+
         params = {"ISU_SRT_CD": True,
                   "ISU_CD": full_code,
                   "ISU_ABBRV": True,
@@ -62,24 +64,11 @@ class AllStockPrice:
                   "MKTCAP": market_capitalization,
                   "LIST_SHRS": total_stocks,
                   "MKT_ID": False}
-        names = {"ISU_SRT_CD": "종목코드",
-                 "ISU_CD": "표준종목코드",
-                 "ISU_ABBRV": "종목명",
-                 "MKT_NM": "시장구분",
-                 "SECT_TP_NM": "소속부",
-                 "TDD_CLSPRC": "종가",
-                 "FLUC_TP_CD": "?",
-                 "CMPPREVDD_PRC": "대비",
-                 "FLUC_RT": "등락률",
-                 "TDD_OPNPRC": "시가",
-                 "TDD_HGPRC": "고가",
-                 "TDD_LWPRC": "저가",
-                 "ACC_TRDVOL": "거래량",
-                 "ACC_TRDVAL": "거래대금",
-                 "MKTCAP": "시가총액",
-                 "LIST_SHRS": "상장주식수",
-                 "MKT_ID": "시장코드"}
+
         result = []
+        names = {}
+        for n in params.keys():
+            names[n] = nt.get(n)
 
         for stk in self._data["OutBlock_1"]:
             temp = {}
