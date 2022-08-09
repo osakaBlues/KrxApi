@@ -14,4 +14,7 @@ names_total = {"ISU_SRT_CD": "종목코드",
                "ACC_TRDVAL": "거래대금",
                "MKTCAP": "시가총액",
                "LIST_SHRS": "상장주식수",
-               "MKT_ID": "시장코드"}
+               "MKT_ID": "시장코드",
+               "BAS_PRC": "시작일 기준가",
+               "FLUC_TP": "?"
+               }
