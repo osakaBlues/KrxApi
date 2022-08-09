@@ -1,5 +1,6 @@
-from ._classes import AllStockPrice
+from ._classes import *
 
 __all__ = [
-    "AllStockPrice"
+    "AllStockPrice",
+    "AllStockFluctuationRate"
 ]
