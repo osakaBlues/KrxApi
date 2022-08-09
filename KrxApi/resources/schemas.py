@@ -59,10 +59,12 @@ _date_type = {
 # schema names
 all_stock_prices = "all_stock_prices"
 all_stock_fluctuations = "all_stock_fluctuations"
+search_stock = "search_stock"
+stock_price_info = "stock_price_info"
 
 # schemas
 schemas = {
-    "search_a_stock": {
+    search_stock: {
         "bld": {
             _value: "dbms/comm/finder/finder_stkisu",
             _mutable: False
@@ -74,7 +76,8 @@ schemas = {
             _mutable: False
         },
         "searchText": {
-            _type: str
+            _type: str,
+            _required: True
         }
     },
     all_stock_prices: {
@@ -125,20 +128,23 @@ schemas = {
             _mutable: False
         }
     },
-    "stock_price_info": {
+    stock_price_info: {
         "bld": {
             _value: 'dbms/MDC/STAT/standard/MDCSTAT01701',
             _mutable: False
         },
         "locale": _locale,
         "isuCd": {
-            _type: str
+            _type: str,
+            _required: True
         },
         "strtDd": {
-            _type: _date_type
+            _type: _date_type,
+            _required: True
         },
         "endDd": {
-            _type: _date_type
+            _type: _date_type,
+            _required: True
         },
         "share": _share,
         "money": _money,

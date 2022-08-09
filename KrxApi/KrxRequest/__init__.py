@@ -1,3 +1,7 @@
+"""
+    요청을 위한 모듈
+    요청에 필요한 객체들을 모아 실행시킨다.
+"""
 from datetime import datetime
 
 from KrxApi.command import Command
@@ -11,9 +15,14 @@ from typing import Optional
 
 
 class KrxRequest:
-    def __init__(self, request_id, args):
-        self._id = request_id
-        self.parameter_constraints = {}
+    """
+        Args:
+            request_id (str): schema 중 사용할 id
+            args (dict): 요청에 넣을 파라미터 (payload에 들어갈)
+    """
+    def __init__(self, request_id: str, args: dict):
+        self._id: str = request_id
+        self.parameter_constraints: dict = {}
         self._command: Optional[Command] = None
         for attr, value in schemas[self._id].items():
             if type(value) is not dict:
@@ -26,7 +35,7 @@ class KrxRequest:
                          .set_attributes(args)
                          .build())
 
-    def is_valid_param(self, key, value):
+    def is_valid_param(self, key: str, value: str) -> bool:
         constraint = self.parameter_constraints.get(key)
         if constraint is None:
             return False
@@ -42,19 +51,13 @@ class KrxRequest:
         else:
             return False
 
-    def run(self):
+    def run(self) -> any:
         if self._command is None:
             raise NotImplementedError
         return self._command.execute().get_data()
 
 
-class AllStockPriceRequest(KrxRequest):
-    def __init__(self, **kwargs):
-        super().__init__(all_stock_prices, args=kwargs)
-        self._command = Command(Connection(self._payload, URLS.STOCK_INFO_CMD))
-
-
-class AllStockFluctuationRateRequest(KrxRequest):
-    def __init__(self, **kwargs):
-        super().__init__(all_stock_fluctuations, args=kwargs)
+class StockInfoRequest(KrxRequest):
+    def __init__(self, schema_id: str, **kwargs):
+        super().__init__(schema_id, args=kwargs)
         self._command = Command(Connection(self._payload, URLS.STOCK_INFO_CMD))
