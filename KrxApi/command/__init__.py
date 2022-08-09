@@ -12,9 +12,9 @@ class Command:
 
     def execute(self) -> KrxResponse:
         if self.connection is None:
-            raise NotImplementedError
+            raise ConnectionError("The Connection is not set")
         try:
             result = self.deserializer.deserialize(self.connection.get_data())
         except DeserializeError:
-            raise ConnectionError
+            raise ConnectionError("Failed get data from connection")
         return KrxResponse(result)
