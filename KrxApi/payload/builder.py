@@ -1,10 +1,6 @@
 from KrxApi.payload import Payload
 from KrxApi.resources.schemas import schemas, Attr
-
-
-class SchemaError(Exception):
-    def __init__(self, s: str):
-        super().__init__(f"schemas 파일의 {s}를 확인해 보세요")
+from KrxApi.resources.SchemaError import SchemaError
 
 
 class PayloadBuilder:
@@ -26,3 +22,9 @@ class PayloadBuilder:
             raise SchemaError(key)
         setattr(self._payload, key, value)
         return self
+
+    def set_attributes(self, attributes: dict) -> 'PayloadBuilder':
+        for k, v in attributes.items():
+            self.set_attribute(k, v)
+        return self
+
