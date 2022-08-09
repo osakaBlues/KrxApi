@@ -57,13 +57,7 @@ class KrxRequest:
         return self._command.execute().get_data()
 
 
-class AllStockPriceRequest(KrxRequest):
-    def __init__(self, **kwargs):
-        super().__init__(all_stock_prices, args=kwargs)
-        self._command = Command(Connection(self._payload, URLS.STOCK_INFO_CMD))
-
-
-class AllStockFluctuationRateRequest(KrxRequest):
-    def __init__(self, **kwargs):
-        super().__init__(all_stock_fluctuations, args=kwargs)
+class StockInfoRequest(KrxRequest):
+    def __init__(self, schema_id: str, **kwargs):
+        super().__init__(schema_id, args=kwargs)
         self._command = Command(Connection(self._payload, URLS.STOCK_INFO_CMD))
