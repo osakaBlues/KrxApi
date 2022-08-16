@@ -1,54 +1,45 @@
-import datetime
-
-from ..command import *
 from ..util.get_time import *
-from ..connection import *
+from ..KrxRequest import *
 from ..resources import *
-from ..payload.builder import *
 
 
-class AllStockPrice:
-    _parameter_constraints = {
-        "mktId": ('ALL', 'SKT', 'KSQ', 'KNX'),
-        "trdDd": "%Y%m%d"
-    }
-
-    def __init__(self,
-                 mktId="ALL",
-                 trdDd=get_formatted_date_today()):
-        if mktId not in self._parameter_constraints["mktId"]:
-            raise ValueError("Invalid market code please check 'mktId'")
-        datetime.datetime.strptime(trdDd, self._parameter_constraints["trdDd"])
-
-        self._mktId = mktId
-        self._trdDd = trdDd
+class StockService:
+    def __init__(self, request: KrxRequest, data_process):
+        self._request: KrxRequest = request
+        self._data_process = data_process
         self._data = None
 
-    def get(self):
-        self._data = Command(
-            Connection(
-                (PayloadBuilder("all_stock_prices")
-                 .set_attribute('mktId', self._mktId)
-                 .set_attribute('trdDd', self._trdDd)
-                 .build()),
-                URLS.STOCK_INFO_CMD)
-        ).get_result()
+    def load(self):
+        self._data = self._request.run()
 
-    def data(self,
-             full_code=False,
-             fluc_rate=False,
-             trade_amount=False,
-             trade_money=False,
-             market_capitalization=False,
-             total_stocks=False):
+    def get_data(self):
         if self._data is None:
-            raise ValueError("Stock data is not loaded yet. Call 'get' with "
-                             "appropriate arguments before using this method.")
+            raise ValueError("Stock data is not loaded yet.")
 
+
+class SearchStock(StockService):
+    def __init__(self, searchText: str, mktsel=MARKETS.ALL):
+        super().__init__(
+            StockInfoRequest(search_stock, searchText=searchText, mktsel=mktsel),
+            None)
+
+
+class AllStockPrice(StockService):
+    def __init__(self, mktId=MARKETS.ALL, trdDd=get_formatted_date_today()):
+        super().__init__(
+            StockInfoRequest(all_stock_prices, mktId=mktId, trdDd=trdDd),
+            None)
+
+    def get_data(self,
+                 full_code=False,
+                 fluc_rate=False,
+                 trade_amount=False,
+                 trade_money=False,
+                 market_capitalization=False,
+                 total_stocks=False):
+        super().get_data()
         from ..DataProcessing import ProcessAllStockPrice
-
         _process_data = ProcessAllStockPrice(self._data)
-
         return _process_data.set_params(full_code,
                                         fluc_rate,
                                         trade_amount,
@@ -57,45 +48,22 @@ class AllStockPrice:
                                         total_stocks).filter()
 
 
-class AllStockFluctuationRate:
-    _parameter_constraints = {
-        "mktId": ('ALL', 'SKT', 'KSQ', 'KNX'),
-        "strtDd": "%Y%m%d",
-        "endDd": "%Y%m%d"
-    }
+class AllStockFluctuationRate(StockService):
 
     def __init__(self,
-                 mktId="ALL",
+                 mktId=MARKETS.ALL,
                  strtDd=get_formatted_date_week_before(),
                  endDd=get_formatted_date_today()):
-        if mktId not in self._parameter_constraints["mktId"]:
-            raise ValueError("Invalid market code please check 'mktId'")
-        datetime.datetime.strptime(strtDd, self._parameter_constraints["strtDd"])
-        datetime.datetime.strptime(endDd, self._parameter_constraints["endDd"])
+        super().__init__(
+            StockInfoRequest(all_stock_fluctuations, mktId=mktId, strtDd=strtDd, endDd=endDd),
+            None)
 
-        self._mktId = mktId
-        self._strtDd = strtDd
-        self._endDd = endDd
-        self._data = None
-
-    def get(self):
-        self._data = Command(
-            Connection(
-                (PayloadBuilder("all_stock_fluctuations")
-                 .set_attribute('mktId', self._mktId)
-                 .set_attribute('strtDd', self._strtDd)
-                 .set_attribute('endDd', self._endDd)
-                 .build()), URLS.STOCK_INFO_CMD)
-        ).get_result()
-
-    def data(self,
-             full_code=False,
-             fluc_rate=True,
-             trade_amount=False,
-             trade_money=False):
-        if self._data is None:
-            raise ValueError("Stock data is not loaded yet. Call 'get' with "
-                             "appropriate arguments before using this method.")
+    def get_data(self,
+                 full_code=False,
+                 fluc_rate=True,
+                 trade_amount=False,
+                 trade_money=False):
+        super().get_data()
 
         from ..DataProcessing import ProcessAllStockFluctuationRate
 
@@ -105,3 +73,12 @@ class AllStockFluctuationRate:
                                         fluc_rate,
                                         trade_amount,
                                         trade_money).filter()
+
+
+class StockPriceInfo(StockService):
+    def __init__(self, isuCd,
+                 strtDd=get_formatted_date_week_before(),
+                 endDd=get_formatted_date_today()):
+        super().__init__(
+            StockInfoRequest(stock_price_info, isuCd=isuCd, strtDd=strtDd, endDd=endDd),
+            None)

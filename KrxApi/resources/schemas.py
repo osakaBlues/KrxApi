@@ -4,12 +4,19 @@ _mutable = "mutable"
 _type = "type"
 _choice = "choice"
 _date = "date"
+_required = "required"
 
 
 class Attr:
     value: str = _value
     mutable: str = _mutable
     type: str = _type
+    choice: str = _choice
+    date: str = _date
+    required: str = _required
+
+
+class Type:
     choice: str = _choice
     date: str = _date
 
@@ -22,6 +29,7 @@ _locale = {
 _mktId = {
     _value: "ALL",
     _mutable: True,
+    _required: True,
     _type: {
         _type: _choice,
         _value: ('ALL', 'SKT', 'KSQ', 'KNX')
@@ -48,10 +56,15 @@ _date_type = {
     _value: "%Y%m%d"
 }
 
+# schema names
+all_stock_prices = "all_stock_prices"
+all_stock_fluctuations = "all_stock_fluctuations"
+search_stock = "search_stock"
+stock_price_info = "stock_price_info"
 
 # schemas
 schemas = {
-    "search_a_stock": {
+    search_stock: {
         "bld": {
             _value: "dbms/comm/finder/finder_stkisu",
             _mutable: False
@@ -63,10 +76,11 @@ schemas = {
             _mutable: False
         },
         "searchText": {
-            _type: str
+            _type: str,
+            _required: True
         }
     },
-    "all_stock_prices": {
+    all_stock_prices: {
         "bld": {
             _value: "dbms/MDC/STAT/standard/MDCSTAT01501",
             _mutable: False
@@ -74,7 +88,8 @@ schemas = {
         "locale": _locale,
         "mktId": _mktId,
         "trdDd": {
-            _type: _date_type
+            _type: _date_type,
+            _required: True
         },
         "share": _share,
         "money": _money,
@@ -83,7 +98,7 @@ schemas = {
             _mutable: False
         }
     },
-    "all_stock_fluctuations": {
+    all_stock_fluctuations: {
         "bld": {
             _value: "dbms/MDC/STAT/standard/MDCSTAT01602",
             _mutable: False
@@ -91,10 +106,12 @@ schemas = {
         "locale": _locale,
         "mktId": _mktId,
         "strtDd": {
-            _type: _date_type
+            _type: _date_type,
+            _required: True
         },
         "endDd": {
-            _type: _date_type
+            _type: _date_type,
+            _required: True
         },
         "adjStkPrc_check": {
             _value: "Y",
@@ -111,20 +128,23 @@ schemas = {
             _mutable: False
         }
     },
-    "stock_price_info": {
+    stock_price_info: {
         "bld": {
             _value: 'dbms/MDC/STAT/standard/MDCSTAT01701',
             _mutable: False
         },
         "locale": _locale,
         "isuCd": {
-            _type: str
+            _type: str,
+            _required: True
         },
         "strtDd": {
-            _type: _date_type
+            _type: _date_type,
+            _required: True
         },
         "endDd": {
-            _type: _date_type
+            _type: _date_type,
+            _required: True
         },
         "share": _share,
         "money": _money,
