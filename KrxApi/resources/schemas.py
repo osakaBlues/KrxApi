@@ -56,6 +56,10 @@ _date_type = {
     _value: "%Y%m%d"
 }
 
+_str_type = {
+    _type: "str"
+}
+
 # schema names
 all_stock_prices = "all_stock_prices"
 all_stock_fluctuations = "all_stock_fluctuations"
@@ -76,7 +80,7 @@ schemas = {
             _mutable: False
         },
         "searchText": {
-            _type: str,
+            _type: _str_type,
             _required: True
         }
     },
@@ -135,7 +139,7 @@ schemas = {
         },
         "locale": _locale,
         "isuCd": {
-            _type: str,
+            _type: _str_type,
             _required: True
         },
         "strtDd": {

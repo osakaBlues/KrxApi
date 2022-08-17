@@ -18,14 +18,21 @@ class StockService:
 
 
 class SearchStock(StockService):
-    def __init__(self, searchText: str, mktsel=MARKETS.ALL):
+    def __init__(self,
+                 searchText: str="삼성전자",
+                 mktsel=MARKETS.ALL):
         super().__init__(
             StockInfoRequest(search_stock, searchText=searchText, mktsel=mktsel),
             None)
 
+    def get_data(self):
+        return self._data
+
 
 class AllStockPrice(StockService):
-    def __init__(self, mktId=MARKETS.ALL, trdDd=get_formatted_date_today()):
+    def __init__(self,
+                 mktId=MARKETS.ALL,
+                 trdDd=get_formatted_date_today()):
         super().__init__(
             StockInfoRequest(all_stock_prices, mktId=mktId, trdDd=trdDd),
             None)
@@ -38,8 +45,11 @@ class AllStockPrice(StockService):
                  market_capitalization=False,
                  total_stocks=False):
         super().get_data()
+
         from ..DataProcessing import ProcessAllStockPrice
+
         _process_data = ProcessAllStockPrice(self._data)
+
         return _process_data.set_params(full_code,
                                         fluc_rate,
                                         trade_amount,
@@ -76,9 +86,13 @@ class AllStockFluctuationRate(StockService):
 
 
 class StockPriceInfo(StockService):
-    def __init__(self, isuCd,
+    def __init__(self,
+                 isuCd,
                  strtDd=get_formatted_date_week_before(),
                  endDd=get_formatted_date_today()):
         super().__init__(
             StockInfoRequest(stock_price_info, isuCd=isuCd, strtDd=strtDd, endDd=endDd),
             None)
+
+    def get_data(self):
+        return self._data

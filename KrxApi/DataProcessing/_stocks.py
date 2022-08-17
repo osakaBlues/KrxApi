@@ -67,3 +67,15 @@ class ProcessAllStockFluctuationRate(Process):
                         "ACC_TRDVAL": trade_money,
                         "FLUC_TP": False}
         return self
+
+
+class ProcessAStockPriceInfo(Process):
+    def set_params(self):
+        self._params = {}
+        return self
+
+
+class ProcessSearchAStock(Process):
+    def set_params(self):
+        self._params = {}
+        return self
