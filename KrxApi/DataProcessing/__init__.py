@@ -2,5 +2,7 @@ from ._stocks import *
 
 __all__ = [
     "ProcessAllStockPrice",
-    "ProcessAllStockFluctuationRate"
+    "ProcessAllStockFluctuationRate",
+    "ProcessSearchAStock",
+    "ProcessAStockPriceInfo"
 ]
