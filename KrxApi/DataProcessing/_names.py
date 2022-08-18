@@ -16,5 +16,14 @@ names_total = {"ISU_SRT_CD": "종목코드",
                "LIST_SHRS": "상장주식수",
                "MKT_ID": "시장코드",
                "BAS_PRC": "시작일 기준가",
-               "FLUC_TP": "?"
+               "FLUC_TP": "?",
+               'full_code': '표준종목코드',
+               'short_code': '종목코드',
+               'codeName': '종목명',
+               'marketCode': '시장코드',
+               'marketName': 'marketName',
+               'marketEngName': '시장구분',
+               'ord1': 'ord1',
+               'ord2': 'ord2',
+               "TRD_DD": "일자"
                }
