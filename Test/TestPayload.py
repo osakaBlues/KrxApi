@@ -8,13 +8,15 @@ from KrxApi.resources.schemas import schemas, Attr
 class TestPayload(unittest.TestCase):
     def test_PayloadStock(self):
         pl = Payload()
+        pl_empty = Payload()
         pl.bld = "test"
         data = pl.to_dict()
         self.assertEqual("test", data['bld'])
         self.assertEqual(None, data.get('typeNo', None))
+        self.assertEqual(dict(), pl_empty.to_dict())
 
     def test_PayloadBuilder(self):
-        pl = (PayloadBuilder("all_stock_prices")
+        pl = (PayloadBuilder()
               .set_attribute('mktId', "ALL")
               .set_attribute('trdDd', "20220801")
               .build())

@@ -1,17 +1,14 @@
 from KrxApi.payload import Payload
-from KrxApi.resources.schemas import schemas, Attr
+from KrxApi.resources.schemas import Attr, validate_schema
 from KrxApi.resources.SchemaError import SchemaError
 
 
 class PayloadBuilder:
     __slots__ = ['_payload']
 
-    def __init__(self, schema_key: str):
+    def __init__(self, schema: dict):
         self._payload: Payload = Payload()
-        schema: dict = schemas[schema_key]
         for k, v in schema.items():
-            if type(v) != dict:
-                raise SchemaError(k)
             setattr(self._payload, k, v.get(Attr.value))
 
     def build(self) -> Payload:

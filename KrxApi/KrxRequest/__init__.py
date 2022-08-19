@@ -31,7 +31,7 @@ class KrxRequest:
                 self.parameter_constraints[attr] = value.get(Attr.type)
         for k, v in args.items():
             self.is_valid_param(k, v)
-        self._payload = (PayloadBuilder(self._id)
+        self._payload = (PayloadBuilder(get_schema(self._id))
                          .set_attributes(args)
                          .build())
 
