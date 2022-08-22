@@ -26,3 +26,4 @@ class ConnectionMock(Connection):
                     result = f.read()
                 return result
         raise RuntimeError
+    
