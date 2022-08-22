@@ -17,11 +17,11 @@ class SchemaTest(unittest.TestCase):
         schema_value3 = {
             Attr.type: False
         }
-        self.assertEqual(False, validate_schema_value(none_value))
-        self.assertEqual(True, validate_schema_value(schema_value_number))
-        self.assertEqual(True, validate_schema_value(schema_value1))
-        self.assertEqual(False, validate_schema_value(schema_value3))
+        self.assertEqual(False, is_valid_schema_value(none_value))
+        self.assertEqual(True, is_valid_schema_value(schema_value_number))
+        self.assertEqual(True, is_valid_schema_value(schema_value1))
+        self.assertEqual(False, is_valid_schema_value(schema_value3))
 
     def test_validate_schema(self):
         for v in schemas.values():
-            self.assertEqual(True, validate_schema(v))
+            self.assertEqual(True, is_valid_schema(v))
