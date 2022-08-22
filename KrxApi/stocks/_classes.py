@@ -12,10 +12,12 @@ class StockService:
     def load(self):
         self._data = self._request.run()
         self._data_process.set_data(self._data)
+        return self
 
-    def get_data(self):
+    def get_data(self, **kargs):
         if self._data is None:
             raise ValueError("Stock data is not loaded yet.")
+        return self._data_process.set_params(**kargs).filter().to_dataframe().get_data()
 
 
 class SearchStock(StockService):
@@ -28,11 +30,11 @@ class SearchStock(StockService):
             ProcessSearchAStock())
 
     def get_data(self):
-        super().get_data()
-        return self._data_process.set_params().filter()
+        return super().get_data()
 
     def get_full_code(self):
-        super().get_data()
+        if self._data is None:
+            raise ValueError("Stock data is not loaded yet.")
         return self._data_process.get_full_code()
 
 
@@ -52,14 +54,14 @@ class AllStockPrice(StockService):
                  trade_money=False,
                  market_capitalization=False,
                  total_stocks=False):
-        super().get_data()
-
-        return self._data_process.set_params(full_code,
-                                             fluc_rate,
-                                             trade_amount,
-                                             trade_money,
-                                             market_capitalization,
-                                             total_stocks).filter()
+        return super().get_data(
+            full_code=full_code,
+            fluc_rate=fluc_rate,
+            trade_amount=trade_amount,
+            trade_money=trade_money,
+            market_capitalization=market_capitalization,
+            total_stocks=total_stocks
+        )
 
 
 class AllStockFluctuationRate(StockService):
@@ -78,12 +80,12 @@ class AllStockFluctuationRate(StockService):
                  fluc_rate=True,
                  trade_amount=False,
                  trade_money=False):
-        super().get_data()
-
-        return self._data_process.set_params(full_code,
-                                             fluc_rate,
-                                             trade_amount,
-                                             trade_money).filter()
+        return super().get_data(
+            full_code=full_code,
+            fluc_rate=fluc_rate,
+            trade_amount=trade_amount,
+            trade_money=trade_money
+        )
 
 
 class StockPriceInfo(StockService):
@@ -102,10 +104,10 @@ class StockPriceInfo(StockService):
                  trade_money=False,
                  market_capitalization=False,
                  total_stocks=False):
-        super().get_data()
-
-        return self._data_process.set_params(fluc_rate,
-                                             trade_amount,
-                                             trade_money,
-                                             market_capitalization,
-                                             total_stocks).filter()
+        return super().get_data(
+            fluc_rate=fluc_rate,
+            trade_amount=trade_amount,
+            trade_money=trade_money,
+            market_capitalization=market_capitalization,
+            total_stocks=total_stocks
+        )

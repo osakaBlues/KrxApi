@@ -12,7 +12,7 @@ class CommandTest(unittest.TestCase):
 
     def test_Command_all_stock(self):
 
-        connection = ConnectionMock((PayloadBuilder("all_stock_prices")
+        connection = ConnectionMock((PayloadBuilder(schemas.get_schema(schemas.all_stock_prices))
                                     .set_attribute("mktId", "ALL")
                                     .set_attribute("trdDd", "20220801")
                                     .build()), URLS.STOCK_INFO_CMD)

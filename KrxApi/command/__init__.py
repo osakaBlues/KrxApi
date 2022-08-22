@@ -4,6 +4,11 @@ from KrxApi.connection import Connection
 
 
 class Command:
+    """
+        Args:
+            deserializer (Deserializer): connection을 통해 얻어온 데이터를 deserialize한다.
+            connection (Connection): 데이터를 요청하는 객체
+    """
     __slots__ = ['deserializer', 'connection']
 
     def __init__(self, connection: Connection):
@@ -16,5 +21,5 @@ class Command:
         try:
             result = self.deserializer.deserialize(self.connection.get_data())
         except DeserializeError:
-            raise ConnectionError("Failed get data from connection")
+            raise ConnectionError("Failed to get data from connection")
         return KrxResponse(result)
