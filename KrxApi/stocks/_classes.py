@@ -12,6 +12,7 @@ class StockService:
     def load(self):
         self._data = self._request.run()
         self._data_process.set_data(self._data)
+        return self
 
     def get_data(self):
         if self._data is None:
