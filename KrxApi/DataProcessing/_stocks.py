@@ -1,3 +1,6 @@
+from KrxApi.KrxResponse import KrxResponse
+
+
 class Process:
     def __init__(self):
         self._params = None
@@ -24,7 +27,7 @@ class Process:
             result.append(temp)
 
         result.append(self._data["CURRENT_DATETIME"])
-        return result
+        return KrxResponse(result)
 
 
 class ProcessAllStockPrice(Process):
