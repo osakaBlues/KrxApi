@@ -1,10 +1,47 @@
+from typing import Optional
 # attribute
+from resources.SchemaError import *
+
 _value = "value"
 _mutable = "mutable"
 _type = "type"
 _choice = "choice"
 _date = "date"
 _required = "required"
+
+
+def validate_schema_value(schema_value: Optional[dict]):
+    if schema_value is None:
+        return False
+    for k, v in schema_value.items():
+        attr = attr_types.get(k)
+        if attr is None:
+            return False
+        if type(attr) is tuple:
+            if not (type(v) in attr):
+                return False
+        elif type(v) != attr:
+            return False
+    return True
+
+
+def validate_schema(schema: dict):
+    for value in schema.values():
+        if type(value) is not dict:
+            return False
+        if not validate_schema_value(value):
+            print(value)
+            return False
+    return True
+
+
+def get_schema(schema_name: str):
+    schema = schemas.get(schema_name)
+    if schema is None:
+        raise WrongSchemaName
+    if not validate_schema(schema):
+        raise SchemaError
+    return schema
 
 
 class Attr:
@@ -14,6 +51,14 @@ class Attr:
     choice: str = _choice
     date: str = _date
     required: str = _required
+
+
+attr_types = {
+    _value: (int, bool, str),
+    _mutable: bool,
+    _type: dict,
+    _required: bool
+}
 
 
 class Type:
