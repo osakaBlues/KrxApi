@@ -1,0 +1,3 @@
+ONE = 1
+THOUSAND = 2
+MILLION = 3
