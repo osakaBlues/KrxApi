@@ -1,6 +1,6 @@
 from typing import Optional
 # attribute
-from ..resources.SchemaError import *
+from KrxApi.resources.SchemaError import *
 
 _value = "value"
 _mutable = "mutable"
@@ -10,7 +10,7 @@ _date = "date"
 _required = "required"
 
 
-def validate_schema_value(schema_value: Optional[dict]):
+def is_valid_schema_value(schema_value: Optional[dict]) -> bool:
     if schema_value is None:
         return False
     for k, v in schema_value.items():
@@ -25,21 +25,21 @@ def validate_schema_value(schema_value: Optional[dict]):
     return True
 
 
-def validate_schema(schema: dict):
+def is_valid_schema(schema: dict) -> bool:
     for value in schema.values():
         if type(value) is not dict:
             return False
-        if not validate_schema_value(value):
+        if not is_valid_schema_value(value):
             print(value)
             return False
     return True
 
 
-def get_schema(schema_name: str):
+def get_schema(schema_name: str) -> dict:
     schema = schemas.get(schema_name)
     if schema is None:
         raise WrongSchemaName
-    if not validate_schema(schema):
+    if not is_valid_schema(schema):
         raise SchemaError
     return schema
 

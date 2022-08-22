@@ -11,13 +11,7 @@ class KrxResponse:
     def get_data(self) -> any:
         return self.data
 
-    def get_ticker(self) -> Ticker:
-        try:
-            result = self.data.get('block1')[0]
-        except KeyError:
-            raise Exception('This object is not Ticker')
-
-        return Ticker(result.get('codeName'),
-                      result.get('full_code'),
-                      result.get('marketCode'),
-                      result.get('short_code'))
+    def to_dataframe(self):
+        import pandas as pd
+        self.data = pd.DataFrame([i for i in self.get_data() if type(i) == dict])
+        return self
