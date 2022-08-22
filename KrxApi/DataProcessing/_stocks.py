@@ -8,7 +8,9 @@ class Process:
         self._data = data
 
     def filter(self):
-        result = []
+        import pandas as pd
+
+        result = {}
         names = {}
 
         from ._names import names_total as nt
@@ -16,15 +18,17 @@ class Process:
         for n in self._params.keys():
             names[n] = nt.get(n)
 
+        for k in self._params.keys():
+            if self._params.get(k) is True:
+                result[names.get(k)] = []
+
         for stk in self._data[self._data_index]:
-            temp = {}
             for k in self._params.keys():
                 if self._params.get(k) is True:
-                    temp[names.get(k)] = stk.get(k)
-            result.append(temp)
+                    result[names.get(k)].append(stk.get(k))
 
-        result.append(self._data["CURRENT_DATETIME"])
-        return result
+        result["현재 시각"] = self._data.get("CURRENT_DATETIME")
+        return pd.DataFrame(result)
 
 
 class ProcessAllStockPrice(Process):

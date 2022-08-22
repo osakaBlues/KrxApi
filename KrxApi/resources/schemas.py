@@ -1,6 +1,6 @@
 from typing import Optional
 # attribute
-from resources.SchemaError import *
+from ..resources.SchemaError import *
 
 _value = "value"
 _mutable = "mutable"
